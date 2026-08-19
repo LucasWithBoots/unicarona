@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { InputField } from "../components/InputField";
 import { PrimaryButton } from "../components/PrimaryButton";
@@ -14,6 +14,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 const shifts: Shift[] = ["Matutino", "Vespertino", "Noturno", "Integral"];
 
 export function RegisterScreen({ navigation }: Props) {
+  const insets = useSafeAreaInsets();
   const [name, setName] = useState("Ana Beatriz");
   const [email, setEmail] = useState("ana.beatriz@unifal.edu.br");
   const [password, setPassword] = useState("");
@@ -22,8 +23,20 @@ export function RegisterScreen({ navigation }: Props) {
   const [shift, setShift] = useState<Shift>("Noturno");
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+    <View style={styles.safeArea}>
+      <ScrollView
+        automaticallyAdjustKeyboardInsets
+        contentContainerStyle={[
+          styles.container,
+          {
+            paddingBottom: insets.bottom + spacing.xxl,
+            paddingLeft: Math.max(insets.left, spacing.xl),
+            paddingRight: Math.max(insets.right, spacing.xl),
+            paddingTop: Math.max(insets.top, spacing.xl),
+          },
+        ]}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={styles.header}>
           <Text style={styles.title}>Cadastro universitário</Text>
           <Text style={styles.subtitle}>
@@ -80,7 +93,7 @@ export function RegisterScreen({ navigation }: Props) {
           onPress={() => navigation.navigate("Verification", { name, email })}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -91,8 +104,6 @@ const styles = StyleSheet.create({
   },
   container: {
     gap: spacing.xl,
-    padding: spacing.xl,
-    paddingBottom: spacing.xxl,
   },
   header: {
     backgroundColor: colors.primarySoft,

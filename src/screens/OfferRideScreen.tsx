@@ -225,8 +225,10 @@ const styles = StyleSheet.create({
     color: colors.surface,
   },
   multiline: {
+    lineHeight: 22,
     minHeight: 82,
-    textAlignVertical: "top",
+    paddingVertical: spacing.md,
+    textAlignVertical: "center",
   },
   securityNote: {
     backgroundColor: colors.successSoft,

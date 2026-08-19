@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -21,71 +22,86 @@ const palette = {
 
 export function WelcomeScreen({ navigation }: Props) {
   return (
-    <SafeAreaView edges={["top", "bottom"]} style={styles.safeArea}>
-      <View style={styles.container}>
-        <View style={styles.hero}>
-          <View style={[styles.orbit, styles.orbitLarge]} />
-          <View style={[styles.orbit, styles.orbitSmall]} />
+    <View style={styles.root}>
+      <StatusBar style="light" />
+      <SafeAreaView edges={["top"]} style={styles.statusArea} />
+      <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
+        <View style={styles.container}>
+          <View style={styles.hero}>
+            <View style={[styles.orbit, styles.orbitLarge]} />
+            <View style={[styles.orbit, styles.orbitSmall]} />
 
-          <View style={styles.brandRow}>
-            <View style={styles.brandIcon}>
-              <Ionicons name="car-sport" size={22} color={palette.purple} />
-            </View>
-            <Text style={styles.brand}>UniCarona</Text>
-          </View>
-
-          <View style={styles.illustration}>
-            <View style={styles.roadLine} />
-            <View style={styles.carBubble}>
-              <Ionicons name="car-sport" size={70} color={palette.white} />
-            </View>
-            <View style={[styles.floatingBadge, styles.badgeLeft]}>
-              <Ionicons name="shield-checkmark" size={18} color="#277A5A" />
-              <Text style={styles.floatingText}>Verificado</Text>
-            </View>
-            <View style={[styles.floatingBadge, styles.badgeRight]}>
-              <Ionicons name="people" size={18} color="#B04C36" />
-              <Text style={styles.floatingText}>Comunidade</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.content}>
-          <View style={styles.copy}>
-            <Text style={styles.eyebrow}>CARONAS UNIVERSITÁRIAS</Text>
-            <Text style={styles.title}>Seu caminho fica melhor quando é compartilhado.</Text>
-            <Text style={styles.subtitle}>
-              Encontre estudantes verificados, combine rotas e chegue ao campus com mais tranquilidade.
-            </Text>
-          </View>
-
-          <View style={styles.actions}>
-            <TouchableOpacity
-              activeOpacity={0.86}
-              onPress={() => navigation.navigate("Register")}
-              style={styles.primaryButton}
-            >
-              <Text style={styles.primaryButtonText}>Criar conta universitária</Text>
-              <View style={styles.buttonIcon}>
-                <Ionicons name="arrow-forward" size={19} color={palette.purple} />
+            <View style={styles.brandRow}>
+              <View style={styles.brandIcon}>
+                <Ionicons name="car-sport" size={22} color={palette.purple} />
               </View>
-            </TouchableOpacity>
+              <Text style={styles.brand}>UniCarona</Text>
+            </View>
 
-            <TouchableOpacity
-              activeOpacity={0.78}
-              onPress={() => navigation.navigate("Login")}
-              style={styles.secondaryButton}
-            >
-              <Text style={styles.secondaryText}>Já tenho uma conta</Text>
-            </TouchableOpacity>
+            <View style={styles.illustration}>
+              <View style={styles.roadLine} />
+              <View style={styles.carBubble}>
+                <Ionicons name="car-sport" size={70} color={palette.white} />
+              </View>
+              <View style={[styles.floatingBadge, styles.badgeLeft]}>
+                <Ionicons name="shield-checkmark" size={18} color="#277A5A" />
+                <Text style={styles.floatingText}>Verificado</Text>
+              </View>
+              <View style={[styles.floatingBadge, styles.badgeRight]}>
+                <Ionicons name="people" size={18} color="#B04C36" />
+                <Text style={styles.floatingText}>Comunidade</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.content}>
+            <View style={styles.copy}>
+              <Text style={styles.eyebrow}>CARONAS UNIVERSITÁRIAS</Text>
+              <Text style={styles.title}>
+                Seu caminho fica melhor quando é compartilhado.
+              </Text>
+              <Text style={styles.subtitle}>
+                Encontre estudantes verificados, combine rotas e chegue ao
+                campus com mais tranquilidade.
+              </Text>
+            </View>
+
+            <View style={styles.actions}>
+              <TouchableOpacity
+                activeOpacity={0.86}
+                onPress={() => navigation.navigate("Register")}
+                style={styles.primaryButton}
+              >
+                <Text style={styles.primaryButtonText}>
+                  Criar conta universitária
+                </Text>
+                <View style={styles.buttonIcon}>
+                  <Ionicons
+                    name="arrow-forward"
+                    size={19}
+                    color={palette.purple}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                activeOpacity={0.78}
+                onPress={() => navigation.navigate("Login")}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryText}>Já tenho uma conta</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { backgroundColor: palette.lilac, flex: 1 },
+  statusArea: { backgroundColor: palette.purple },
   safeArea: { backgroundColor: palette.lilac, flex: 1 },
   container: { flex: 1 },
   hero: {
@@ -114,8 +130,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 42,
   },
-  brand: { color: palette.white, fontSize: 20, fontWeight: "900", letterSpacing: -0.4 },
-  illustration: { alignItems: "center", flex: 1, justifyContent: "center", minHeight: 245 },
+  brand: {
+    color: palette.white,
+    fontSize: 20,
+    fontWeight: "900",
+    letterSpacing: -0.4,
+  },
+  illustration: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    minHeight: 245,
+  },
   roadLine: {
     backgroundColor: "rgba(255,255,255,0.16)",
     borderRadius: 999,
@@ -152,9 +178,19 @@ const styles = StyleSheet.create({
   badgeLeft: { backgroundColor: palette.mint, bottom: 32, left: 4 },
   badgeRight: { backgroundColor: palette.coral, right: 0, top: 42 },
   floatingText: { color: palette.ink, fontSize: 12, fontWeight: "800" },
-  content: { flex: 1, justifyContent: "space-between", padding: 24, paddingTop: 26 },
+  content: {
+    flex: 1,
+    justifyContent: "space-between",
+    padding: 24,
+    paddingTop: 26,
+  },
   copy: { gap: 10 },
-  eyebrow: { color: palette.purple, fontSize: 11, fontWeight: "900", letterSpacing: 1.5 },
+  eyebrow: {
+    color: palette.purple,
+    fontSize: 11,
+    fontWeight: "900",
+    letterSpacing: 1.5,
+  },
   title: {
     color: palette.ink,
     fontSize: 30,
@@ -187,6 +223,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 42,
   },
-  secondaryButton: { alignItems: "center", justifyContent: "center", minHeight: 42 },
+  secondaryButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 42,
+  },
   secondaryText: { color: palette.purpleDark, fontSize: 14, fontWeight: "800" },
 });
