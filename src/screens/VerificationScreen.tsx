@@ -111,7 +111,10 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
   },
   header: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.lg,
     gap: spacing.sm,
+    padding: spacing.lg,
   },
   title: {
     color: colors.text,

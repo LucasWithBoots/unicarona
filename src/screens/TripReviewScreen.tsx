@@ -119,7 +119,10 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxl,
   },
   header: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.lg,
     gap: spacing.sm,
+    padding: spacing.lg,
   },
   title: {
     color: colors.text,
@@ -184,8 +187,8 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   criterionSelected: {
-    backgroundColor: colors.success,
-    borderColor: colors.success,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   criterionText: {
     color: colors.muted,

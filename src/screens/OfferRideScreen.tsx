@@ -164,10 +164,13 @@ const styles = StyleSheet.create({
   container: {
     gap: spacing.lg,
     padding: spacing.lg,
-    paddingBottom: spacing.xxl,
+    paddingBottom: 112,
   },
   header: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.lg,
     gap: spacing.sm,
+    padding: spacing.lg,
   },
   title: {
     color: colors.text,
@@ -211,8 +214,8 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   optionSelected: {
-    backgroundColor: colors.success,
-    borderColor: colors.success,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   optionText: {
     color: colors.muted,

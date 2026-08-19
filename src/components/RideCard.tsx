@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderColor: colors.border,
     borderRadius: radius.lg,
-    borderWidth: 1,
+    borderWidth: 0,
     gap: spacing.md,
     padding: spacing.lg,
     ...shadows.card,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   pricePill: {
     backgroundColor: colors.successSoft,
-    borderRadius: radius.pill,
+    borderRadius: radius.md,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
   },

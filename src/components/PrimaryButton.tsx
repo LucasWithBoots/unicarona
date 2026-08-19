@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
 
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, shadows, spacing, typography } from "../theme";
 
 interface PrimaryButtonProps {
   title: string;
@@ -49,6 +49,7 @@ export function PrimaryButton({
           backgroundColor,
           borderColor: variant === "outline" ? colors.primary : "transparent",
           opacity: disabled ? 0.55 : 1,
+          ...(variant === "primary" ? shadows.floating : {}),
         },
         style,
       ]}
@@ -75,11 +76,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.sm,
     justifyContent: "center",
-    minHeight: 52,
+    minHeight: 56,
     paddingHorizontal: spacing.lg,
   },
   title: {
     fontSize: typography.body,
-    fontWeight: "700",
+    fontWeight: "800",
   },
 });

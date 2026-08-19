@@ -28,7 +28,8 @@ export function AppNavigator() {
           headerShadowVisible: false,
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
-          headerTitleStyle: { fontWeight: "900" },
+          headerBackButtonDisplayMode: "minimal",
+          headerTitleStyle: { fontSize: 17, fontWeight: "900" },
         }}
       >
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />

@@ -95,7 +95,10 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxl,
   },
   header: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.lg,
     gap: spacing.sm,
+    padding: spacing.lg,
   },
   title: {
     color: colors.text,

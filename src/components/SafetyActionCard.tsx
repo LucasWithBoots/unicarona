@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, shadows, spacing, typography } from "../theme";
 
 interface SafetyActionCardProps {
   title: string;
@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderColor: colors.border,
     borderRadius: radius.lg,
-    borderWidth: 1,
+    borderWidth: 0,
     flexDirection: "row",
     gap: spacing.md,
     padding: spacing.lg,
+    ...shadows.card,
   },
   iconBox: {
     alignItems: "center",

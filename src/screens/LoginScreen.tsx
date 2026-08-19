@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { InputField } from "../components/InputField";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { RootStackParamList } from "../navigation/types";
-import { colors, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography } from "../theme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -72,7 +72,10 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
   },
   header: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.lg,
     gap: spacing.sm,
+    padding: spacing.xl,
   },
   title: {
     color: colors.text,

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, shadows, spacing, typography } from "../theme";
 import { User } from "../types";
 import { RatingStars } from "./RatingStars";
 import { VerifiedBadge } from "./VerifiedBadge";
@@ -40,8 +40,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderColor: colors.border,
     borderRadius: radius.lg,
-    borderWidth: 1,
+    borderWidth: 0,
     padding: spacing.lg,
+    ...shadows.card,
   },
   row: {
     alignItems: "center",
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   avatar: {
     alignItems: "center",
     backgroundColor: colors.primarySoft,
-    borderRadius: radius.pill,
+    borderRadius: radius.md,
     height: 54,
     justifyContent: "center",
     width: 54,

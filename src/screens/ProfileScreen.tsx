@@ -34,7 +34,7 @@ export function ProfileScreen() {
         <View style={styles.stats}>
           <Stat icon="star-outline" label="Avaliação" value={currentUser.rating.toFixed(1)} />
           <Stat icon="car-sport-outline" label="Viagens" value={`${currentUser.trips}`} />
-          <Stat icon="shield-checkmark-outline" label="Status" value="Verificado" />
+          <Stat icon="shield-checkmark-outline" label="Verificação" value="Ativa" />
         </View>
 
         <View style={styles.card}>
@@ -119,10 +119,13 @@ const styles = StyleSheet.create({
   container: {
     gap: spacing.lg,
     padding: spacing.lg,
-    paddingBottom: spacing.xxl,
+    paddingBottom: 112,
   },
   header: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.lg,
     gap: spacing.sm,
+    padding: spacing.lg,
   },
   title: {
     color: colors.text,

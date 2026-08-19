@@ -6,7 +6,7 @@ import { MyRidesScreen } from "../screens/MyRidesScreen";
 import { OfferRideScreen } from "../screens/OfferRideScreen";
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { SafetyScreen } from "../screens/SafetyScreen";
-import { colors } from "../theme";
+import { colors, shadows } from "../theme";
 import { TabParamList } from "./types";
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -19,15 +19,25 @@ export function MainTabs() {
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.subtle,
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: "700",
+          fontSize: 11,
+          fontWeight: "800",
+          marginTop: 2,
+        },
+        tabBarItemStyle: {
+          borderRadius: 18,
         },
         tabBarStyle: {
-          backgroundColor: colors.surface,
-          borderTopColor: colors.border,
-          height: 68,
-          paddingBottom: 10,
-          paddingTop: 8,
+          backgroundColor: "rgba(255,255,255,0.97)",
+          borderRadius: 26,
+          borderTopColor: "transparent",
+          bottom: 10,
+          height: 72,
+          left: 12,
+          paddingBottom: 8,
+          paddingTop: 7,
+          position: "absolute",
+          right: 12,
+          ...shadows.floating,
         },
         tabBarIcon: ({ color, size, focused }) => {
           const icons: Record<keyof TabParamList, keyof typeof Ionicons.glyphMap> = {
