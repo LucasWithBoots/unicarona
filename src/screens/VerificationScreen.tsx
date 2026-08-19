@@ -39,7 +39,7 @@ export function VerificationScreen({ navigation, route }: Props) {
             active={method === "document"}
             icon="document-text-outline"
             title="Comprovante de matrícula"
-            description="Simular envio de documento para validação acadêmica."
+            description="Enviar comprovante para validação do vínculo acadêmico."
             onPress={() => setMethod("document")}
           />
         </View>

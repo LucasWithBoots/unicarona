@@ -1,6 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -23,7 +22,6 @@ const palette = {
 export function WelcomeScreen({ navigation }: Props) {
   return (
     <View style={styles.root}>
-      <StatusBar style="light" />
       <SafeAreaView edges={["top"]} style={styles.statusArea} />
       <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
         <View style={styles.container}>

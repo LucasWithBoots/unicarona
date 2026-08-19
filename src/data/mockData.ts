@@ -183,9 +183,17 @@ export const rideRequests: RideRequest[] = [
     id: "request-2",
     rideId: "my-ride-1",
     passengerId: "passenger-joao",
-    status: "pending",
+    status: "accepted",
     message: "Preciso voltar para o centro depois da prova. Posso dividir o valor sugerido.",
     createdAt: "Hoje, 16:18",
+  },
+  {
+    id: "request-3",
+    rideId: "ride-2",
+    passengerId: "user-ana",
+    status: "accepted",
+    message: "Saio da aula às 22h e consigo encontrar você na portaria principal.",
+    createdAt: "Hoje, 14:40",
   },
 ];
 

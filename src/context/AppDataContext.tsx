@@ -27,7 +27,11 @@ const AppDataContext = createContext<AppDataContextValue | undefined>(undefined)
 export function AppDataProvider({ children }: PropsWithChildren) {
   const [localRides, setLocalRides] = useState<Ride[]>([]);
   const [requests, setRequests] = useState<RideRequest[]>(rideRequests);
-  const [requestedRideIds, setRequestedRideIds] = useState<string[]>([]);
+  const [requestedRideIds, setRequestedRideIds] = useState<string[]>(() =>
+    rideRequests
+      .filter((request) => request.passengerId === currentUser.id)
+      .map((request) => request.rideId),
+  );
 
   const rides = useMemo(() => [...availableRides, ...localRides], [localRides]);
   const myRides = useMemo(() => [...myPublishedRides, ...localRides], [localRides]);
@@ -53,7 +57,7 @@ export function AppDataProvider({ children }: PropsWithChildren) {
         rideId,
         passengerId: currentUser.id,
         status: "pending",
-        message: "Solicitação enviada pelo protótipo UniCarona.",
+        message: "Gostaria de reservar uma vaga nesta carona.",
         createdAt: "Agora",
       },
     ]);

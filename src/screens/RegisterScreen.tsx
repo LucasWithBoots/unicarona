@@ -17,7 +17,7 @@ export function RegisterScreen({ navigation }: Props) {
   const insets = useSafeAreaInsets();
   const [name, setName] = useState("Ana Beatriz");
   const [email, setEmail] = useState("ana.beatriz@unifal.edu.br");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("unicarona");
   const [university, setUniversity] = useState("UNIFAL-MG");
   const [campus, setCampus] = useState("Campus Sede - Alfenas");
   const [shift, setShift] = useState<Shift>("Noturno");

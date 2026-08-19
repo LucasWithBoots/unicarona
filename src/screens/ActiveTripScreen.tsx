@@ -44,18 +44,18 @@ export function ActiveTripScreen({ navigation, route }: Props) {
         <SafetyQuick
           title="Compartilhar rota"
           icon="share-social-outline"
-          onPress={() => Alert.alert("Rota compartilhada", "Contato de confiança recebeu a rota simulada.")}
+          onPress={() => Alert.alert("Rota compartilhada", "Seu contato de confiança recebeu a rota da viagem.")}
         />
         <SafetyQuick
           title="Emergência"
           icon="alert-circle-outline"
           danger
-          onPress={() => Alert.alert("Emergência", "Acionamento simulado para o protótipo.")}
+          onPress={() => Alert.alert("Emergência acionada", "Contato de confiança e suporte foram notificados.")}
         />
         <SafetyQuick
           title="Denunciar"
           icon="flag-outline"
-          onPress={() => Alert.alert("Denúncia registrada", "Relato simulado salvo para análise.")}
+          onPress={() => Alert.alert("Denúncia registrada", "Seu relato foi recebido para análise.")}
         />
       </View>
 

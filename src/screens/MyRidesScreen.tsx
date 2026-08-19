@@ -25,7 +25,9 @@ export function MyRidesScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Minhas caronas</Text>
-          <Text style={styles.subtitle}>Acompanhe ofertas publicadas, pedidos enviados e viagens simuladas.</Text>
+          <Text style={styles.subtitle}>
+            Acompanhe ofertas publicadas, pedidos enviados e próximas viagens.
+          </Text>
         </View>
 
         <TouchableOpacity

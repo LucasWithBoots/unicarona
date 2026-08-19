@@ -10,7 +10,9 @@ export function SafetyScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Segurança</Text>
-          <Text style={styles.subtitle}>Recursos simulados para demonstrar confiança antes, durante e depois da carona.</Text>
+          <Text style={styles.subtitle}>
+            Recursos de proteção para usar antes, durante e depois da carona.
+          </Text>
         </View>
 
         <View style={styles.emergencyBox}>
@@ -21,7 +23,7 @@ export function SafetyScreen() {
             description="Simula contato com suporte e pessoa de confiança."
             icon="alert-circle-outline"
             tone="danger"
-            onPress={() => Alert.alert("Emergência simulada", "Contato de confiança e suporte foram notificados no protótipo.")}
+            onPress={() => Alert.alert("Emergência acionada", "Contato de confiança e suporte foram notificados.")}
           />
         </View>
 
@@ -31,21 +33,21 @@ export function SafetyScreen() {
             description="Envie a rota para um contato de confiança."
             icon="share-social-outline"
             tone="success"
-            onPress={() => Alert.alert("Rota compartilhada", "Link simulado enviado ao contato de confiança.")}
+            onPress={() => Alert.alert("Rota compartilhada", "O contato de confiança recebeu o link da viagem.")}
           />
           <SafetyActionCard
             title="Denunciar usuário"
             description="Relate comportamento inadequado para análise."
             icon="flag-outline"
             tone="warning"
-            onPress={() => Alert.alert("Denúncia registrada", "Seu relato foi salvo de forma simulada.")}
+            onPress={() => Alert.alert("Denúncia registrada", "Seu relato foi recebido para análise.")}
           />
           <SafetyActionCard
             title="Bloquear usuário"
             description="Evite novas interações com um perfil específico."
             icon="ban-outline"
             tone="danger"
-            onPress={() => Alert.alert("Usuário bloqueado", "Bloqueio simulado aplicado ao protótipo.")}
+            onPress={() => Alert.alert("Usuário bloqueado", "Esse perfil não poderá interagir com você.")}
           />
           <SafetyActionCard
             title="Dicas de segurança"

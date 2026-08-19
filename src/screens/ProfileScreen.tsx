@@ -22,7 +22,9 @@ export function ProfileScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Perfil</Text>
-          <Text style={styles.subtitle}>Dados simulados do estudante usado no protótipo.</Text>
+          <Text style={styles.subtitle}>
+            Gerencie seus dados acadêmicos e preferências de segurança.
+          </Text>
         </View>
 
         <UserCard user={currentUser} subtitle={`${currentUser.course} • ${currentUser.shift}`}>
@@ -62,7 +64,7 @@ export function ProfileScreen() {
         </TouchableOpacity>
 
         <PrimaryButton
-          title="Sair do protótipo"
+          title="Sair da conta"
           icon="log-out-outline"
           variant="outline"
           onPress={() => navigation.navigate("Welcome")}

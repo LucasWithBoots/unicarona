@@ -17,7 +17,9 @@ export function TripReviewScreen({ navigation, route }: Props) {
   const { getRideById, getUserById } = useAppData();
   const [rating, setRating] = useState(5);
   const [selectedCriteria, setSelectedCriteria] = useState<string[]>(["Pontualidade", "Segurança"]);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(
+    "Carona tranquila, motorista pontual e comunicação clara durante todo o trajeto.",
+  );
   const [submitted, setSubmitted] = useState(false);
   const ride = route.params?.rideId ? getRideById(route.params.rideId) : undefined;
   const driver = ride ? getUserById(ride.driverId) : undefined;
@@ -198,8 +200,10 @@ const styles = StyleSheet.create({
     color: colors.surface,
   },
   comment: {
+    lineHeight: 22,
     minHeight: 98,
-    textAlignVertical: "top",
+    paddingVertical: spacing.md,
+    textAlignVertical: "center",
   },
   confirmation: {
     alignItems: "center",

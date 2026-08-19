@@ -20,7 +20,9 @@ export function FiltersScreen({ navigation }: Props) {
   return (
     <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
       <Text style={styles.title}>Encontrar a melhor carona</Text>
-      <Text style={styles.subtitle}>A busca é simulada no MVP, mas mostra os critérios principais do fluxo.</Text>
+      <Text style={styles.subtitle}>
+        Defina origem, destino, horário e valor para encontrar a melhor opção.
+      </Text>
 
       <View style={styles.form}>
         <InputField label="Origem" icon="location-outline" value={origin} onChangeText={setOrigin} />
@@ -55,7 +57,7 @@ export function FiltersScreen({ navigation }: Props) {
         title="Aplicar filtros"
         icon="checkmark-circle-outline"
         onPress={() => {
-          Alert.alert("Filtros aplicados", "Lista atualizada com caronas compatíveis no protótipo.");
+          Alert.alert("Filtros aplicados", "Lista atualizada com caronas compatíveis.");
           navigation.goBack();
         }}
       />

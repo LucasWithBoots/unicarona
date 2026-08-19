@@ -22,7 +22,7 @@ export function RequestConfirmedScreen({ navigation, route }: Props) {
       <View style={styles.content}>
         <Text style={styles.title}>Solicitação enviada</Text>
         <Text style={styles.subtitle}>
-          O motorista recebeu seu pedido. Neste protótipo, a confirmação é simulada para demonstrar o fluxo.
+          O motorista recebeu seu pedido e você será avisado quando ele responder.
         </Text>
       </View>
 
@@ -36,7 +36,7 @@ export function RequestConfirmedScreen({ navigation, route }: Props) {
 
       <View style={styles.actions}>
         <PrimaryButton
-          title="Acompanhar viagem simulada"
+          title="Acompanhar viagem"
           icon="navigate-circle-outline"
           onPress={() => navigation.navigate("ActiveTrip", { rideId: route.params.rideId })}
         />
