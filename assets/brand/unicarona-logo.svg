@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">UniCarona</title>
+  <desc id="desc">Símbolo de carro branco sobre fundo roxo acompanhado do nome UniCarona.</desc>
+  <g transform="translate(20 20)">
+    <rect width="280" height="280" rx="76" fill="#6D55F7"/>
+    <path fill="#FFFFFF" d="M62 164c0-12 7-23 18-28l14-40c6-17 22-28 40-28h12c18 0 34 11 40 28l14 40c11 5 18 16 18 28v41c0 8-6 14-14 14h-10c-8 0-14-6-14-14v-3H100v3c0 8-6 14-14 14H76c-8 0-14-6-14-14v-41Zm50-59-9 27h74l-9-27c-3-8-10-13-19-13h-18c-9 0-16 5-19 13Zm-25 56c0 8 7 15 15 15s15-7 15-15-7-15-15-15-15 7-15 15Zm76 0c0 8 7 15 15 15s15-7 15-15-7-15-15-15-15 7-15 15Zm-43 22c-5 0-9 4-9 9s4 9 9 9h40c5 0 9-4 9-9s-4-9-9-9h-40Z"/>
+  </g>
+  <text x="350" y="206" fill="#2F245F" font-family="Arial, Helvetica, sans-serif" font-size="144" font-weight="800" letter-spacing="-6">UniCarona</text>
+</svg>
