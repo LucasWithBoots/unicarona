@@ -1,56 +1,113 @@
-# Welcome to your Expo app 👋
+# UniCarona
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo móvel de caronas universitárias desenvolvido como parte de um Trabalho de Conclusão de Curso (TCC). O UniCarona busca facilitar o encontro entre estudantes que realizam trajetos semelhantes, priorizando uma experiência simples, informações acadêmicas verificáveis e recursos de segurança durante a viagem.
 
-## Get started
+> **Status:** protótipo funcional para fins acadêmicos. Os dados exibidos são simulados e permanecem apenas em memória; o projeto ainda não possui backend, autenticação real ou integração com serviços de localização.
 
-1. Install dependencies
+## Funcionalidades
 
-   ```bash
-   npm install
-   ```
+- apresentação, login e cadastro universitário;
+- verificação por e-mail institucional ou comprovante de matrícula;
+- busca e filtragem de caronas por origem, destino, horário e valor;
+- consulta aos detalhes da rota, do motorista e das vagas disponíveis;
+- solicitação de vaga em uma carona;
+- criação e revisão de ofertas de carona;
+- gerenciamento de ofertas e solicitações recebidas;
+- acompanhamento simulado de uma viagem em andamento;
+- compartilhamento de rota, emergência, denúncia e bloqueio de usuário;
+- avaliação da viagem por nota, critérios rápidos e comentário;
+- perfil acadêmico com situação da verificação e histórico resumido.
 
-2. Start the app
+## Tecnologias
 
-   ```bash
-   npx expo start
-   ```
+- [React Native](https://reactnative.dev/) e [React](https://react.dev/);
+- [Expo](https://expo.dev/) e EAS Build;
+- TypeScript;
+- React Navigation (Native Stack e Bottom Tabs);
+- Expo Vector Icons;
+- React Native Gesture Handler e Safe Area Context.
 
-In the output, you'll find options to open the app in a
+## Como executar
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Pré-requisitos
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Node.js em uma versão LTS;
+- npm;
+- Expo Go em um dispositivo compatível ou um emulador Android/iOS configurado.
 
-## Get a fresh project
+### Instalação
 
-When you're ready, run:
+Clone o repositório e instale as dependências:
 
 ```bash
-npm run reset-project
+git clone https://github.com/LucasWithBoots/unicarona.git
+cd unicarona
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Inicie o servidor de desenvolvimento:
 
-### Other setup steps
+```bash
+npm start
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Após a inicialização, use o QR Code no Expo Go ou escolha uma das opções apresentadas no terminal.
 
-## Learn more
+Também estão disponíveis os comandos:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm run android  # executa o projeto Android nativo
+npm run ios      # executa o projeto iOS nativo (requer macOS)
+npm run web      # abre a versão web
+npm run lint     # verifica o código com ESLint
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+O projeto utiliza `expo-dev-client`. Dependendo dos recursos nativos e da plataforma utilizada, pode ser necessário gerar e instalar um development build em vez de usar o Expo Go.
 
-## Join the community
+## Estrutura do projeto
 
-Join our community of developers creating universal apps.
+```text
+unicarona/
+├── assets/                 # ícones e recursos visuais
+├── src/
+│   ├── components/         # componentes reutilizáveis da interface
+│   ├── context/            # estado local e operações do protótipo
+│   ├── data/               # usuários, caronas e avaliações simuladas
+│   ├── navigation/         # pilha principal e menu inferior
+│   ├── screens/            # telas e fluxos do aplicativo
+│   ├── theme/              # cores, espaçamentos, tipografia e sombras
+│   └── types/              # tipos e interfaces TypeScript
+├── App.tsx                 # ponto de entrada do aplicativo
+├── app.json                # configuração do Expo
+└── eas.json                # perfis de build do EAS
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Fluxo principal
+
+1. O usuário acessa a apresentação, realiza o cadastro e escolhe um método de verificação universitária.
+2. Na página inicial, consulta caronas sugeridas ou aplica filtros.
+3. Pode visualizar os detalhes e solicitar uma vaga, ou publicar sua própria oferta.
+4. O motorista acompanha e responde às solicitações recebidas.
+5. Durante a viagem, o protótipo apresenta ações de segurança e, ao final, permite registrar uma avaliação.
+
+## Dados e limitações
+
+O estado da aplicação é mantido pelo `AppDataContext`. Novas ofertas, solicitações e alterações realizadas durante a execução não são persistidas após o aplicativo ser reiniciado. As ações de verificação, emergência, localização, denúncia e compartilhamento de rota representam fluxos de interface e não acionam serviços externos.
+
+Para uma versão de produção, ainda seriam necessários, entre outros pontos:
+
+- API e banco de dados persistente;
+- autenticação e recuperação de conta;
+- validação segura do vínculo universitário;
+- mapas, geolocalização e acompanhamento da rota;
+- notificações e comunicação entre usuários;
+- políticas de privacidade, moderação e tratamento de incidentes;
+- testes automatizados, testes de segurança e monitoramento.
+
+## Contexto acadêmico
+
+O UniCarona foi desenvolvido para investigar a aplicação de conceitos de Experiência do Usuário, Design Centrado no Usuário e prototipação em uma solução de mobilidade universitária. O protótipo serve como artefato do TCC e não representa um serviço comercial disponível ao público.
+
+## Autor
+
+Desenvolvido por [Lucas](https://github.com/LucasWithBoots).
