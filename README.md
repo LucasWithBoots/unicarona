@@ -1,5 +1,11 @@
 # UniCarona
 
+<img width="300" alt="boas-vindas" src="https://github.com/user-attachments/assets/3e303849-4096-4aa9-ad01-4545315e2409" />
+<img width="300"  alt="inicio" src="https://github.com/user-attachments/assets/a4cab4b2-bbad-4d3a-aab7-c2ca7912e997" />
+<img width="300" alt="seguranca" src="https://github.com/user-attachments/assets/4eced10a-4359-42c2-88af-43bd6e241bc9" />
+
+
+
 Aplicativo móvel de caronas universitárias desenvolvido como parte de um Trabalho de Conclusão de Curso (TCC). O UniCarona busca facilitar o encontro entre estudantes que realizam trajetos semelhantes, priorizando uma experiência simples, informações acadêmicas verificáveis e recursos de segurança durante a viagem.
 
 > **Status:** protótipo funcional para fins acadêmicos. Os dados exibidos são simulados e permanecem apenas em memória; o projeto ainda não possui backend, autenticação real ou integração com serviços de localização.
