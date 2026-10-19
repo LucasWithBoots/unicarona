@@ -4,48 +4,62 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UniCarona · Caronas universitárias</title>
-    <meta name="description" content="Protótipo do UniCarona, app de caronas universitárias desenvolvido como TCC. Teste direto no navegador." />
+    <meta name="description" content="UniCarona, app de caronas universitárias desenvolvido como TCC: da pesquisa com estudantes ao protótipo funcional. Teste direto no navegador." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="UniCarona · Caronas universitárias" />
-    <meta property="og:description" content="Protótipo do app de caronas universitárias desenvolvido como TCC. Teste direto no navegador." />
+    <meta property="og:description" content="Do questionário com estudantes ao protótipo funcional em React Native. Teste direto no navegador." />
     <meta property="og:url" content="%SITE_URL%/" />
     <meta property="og:image" content="%SITE_URL%/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="627" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.ico" />
-    <script>
-      // Em telas de celular, abre o app direto em tela cheia.
-      if (window.matchMedia("(max-width: 767px)").matches) {
-        location.replace("/app/");
-      }
-    </script>
     <style>
       :root {
         --primary: #6d55f7;
         --primary-dark: #382779;
         --primary-soft: #e8e1ff;
         --bg: #f7f5fc;
+        --surface: #ffffff;
+        --surface-alt: #f2effa;
         --text: #1d1a2d;
-        --muted: #777187;
+        --muted: #6f6a82;
+        --border: #e8e3f0;
+        --success: #277a5a;
+        --success-soft: #ddf7eb;
+        --danger: #b8463f;
+        --danger-soft: #ffe7e0;
+        --warning: #9a6512;
+        --warning-soft: #fff2d9;
       }
       * { box-sizing: border-box; }
-      html, body { margin: 0; height: 100%; }
+      html { scroll-behavior: smooth; }
+      html, body { margin: 0; }
       body {
-        background:
-          radial-gradient(circle at 85% 15%, rgba(109, 85, 247, 0.18), transparent 45%),
-          radial-gradient(circle at 10% 90%, rgba(72, 185, 137, 0.12), transparent 40%),
-          var(--bg);
+        background: var(--bg);
         color: var(--text);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.5;
+      }
+      img { display: block; max-width: 100%; }
+      a { color: inherit; }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        position: relative;
+        min-height: min(100vh, 960px);
         display: flex;
         align-items: center;
         justify-content: center;
         gap: clamp(32px, 7vw, 120px);
         padding: 24px;
+        background:
+          radial-gradient(circle at 85% 15%, rgba(109, 85, 247, 0.18), transparent 45%),
+          radial-gradient(circle at 10% 90%, rgba(72, 185, 137, 0.12), transparent 40%),
+          var(--bg);
         overflow: hidden;
       }
-      .intro { max-width: 420px; }
+      .intro { max-width: 440px; }
       .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
       .brand img { width: 52px; height: 52px; border-radius: 14px; box-shadow: 0 8px 20px rgba(56, 39, 121, 0.2); }
       .brand span { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
@@ -53,7 +67,7 @@
         color: var(--primary); font-size: 12px; font-weight: 700;
         letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 12px;
       }
-      h1 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; }
+      h1 { font-size: clamp(32px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; }
       .lead { color: var(--muted); font-size: 17px; line-height: 1.55; margin: 0 0 28px; }
       .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
       .tags span {
@@ -61,13 +75,20 @@
         font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px;
       }
       .links { display: flex; gap: 12px; flex-wrap: wrap; }
-      .links a {
+      .btn {
         text-decoration: none; font-weight: 700; font-size: 15px;
-        padding: 12px 18px; border-radius: 14px;
+        padding: 12px 18px; border-radius: 14px; display: inline-block;
       }
-      .links .primary { background: var(--primary); color: #fff; box-shadow: 0 10px 22px rgba(109, 85, 247, 0.3); }
-      .links .secondary { background: #fff; color: var(--text); border: 1px solid #e8e3f0; }
+      .btn.primary { background: var(--primary); color: #fff; box-shadow: 0 10px 22px rgba(109, 85, 247, 0.3); }
+      .btn.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
       .hint { color: var(--muted); font-size: 13px; margin-top: 20px; }
+      .scroll-cue {
+        position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%);
+        color: var(--primary-dark); font-size: 13px; font-weight: 700; text-decoration: none;
+        display: flex; flex-direction: column; align-items: center; gap: 4px;
+      }
+      .scroll-cue span { font-size: 18px; animation: nudge 1.8s ease-in-out infinite; }
+      @keyframes nudge { 50% { transform: translateY(4px); } }
 
       .stage { flex: none; }
       .phone {
@@ -81,7 +102,7 @@
           0 0 0 1px #0a0910,
           0 40px 80px rgba(29, 26, 45, 0.28),
           0 12px 24px rgba(29, 26, 45, 0.16);
-        transform-origin: center;
+        transform-origin: top left;
       }
       .phone::before, .phone::after {
         content: ""; position: absolute; width: 4px; border-radius: 2px; background: #1c1926;
@@ -94,55 +115,411 @@
       }
       .screen iframe { width: 100%; height: 100%; border: 0; display: block; }
 
+      /* ---------- Seções ---------- */
+      section.block { padding: 96px 24px; }
+      section.block.alt { background: var(--surface); }
+      .wrap { max-width: 1080px; margin: 0 auto; }
+      .section-head { max-width: 680px; margin-bottom: 40px; }
+      .section-head .eyebrow { margin-bottom: 10px; }
+      h2 { font-size: clamp(26px, 3vw, 36px); line-height: 1.12; letter-spacing: -0.025em; margin: 0 0 14px; }
+      .section-head p { color: var(--muted); font-size: 17px; margin: 0; }
+      h3 { font-size: 18px; letter-spacing: -0.01em; margin: 0 0 6px; }
+
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .stat {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 22px;
+      }
+      .stat strong { display: block; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: var(--primary); margin-bottom: 10px; }
+      .stat span { color: var(--muted); font-size: 14px; }
+      .callout {
+        margin-top: 16px; background: var(--warning-soft); color: var(--warning);
+        border-radius: 18px; padding: 16px 20px; font-size: 15px; font-weight: 600;
+      }
+
+      .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .step {
+        position: relative; background: var(--bg); border-radius: 22px; padding: 22px 22px 24px;
+      }
+      .step .num {
+        width: 34px; height: 34px; border-radius: 11px; background: var(--primary); color: #fff;
+        display: grid; place-items: center; font-weight: 800; font-size: 15px; margin-bottom: 14px;
+      }
+      .step p { color: var(--muted); font-size: 14px; margin: 0; }
+
+      .personas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      .persona {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 24px;
+        display: flex; flex-direction: column; gap: 16px;
+      }
+      .persona header { display: flex; align-items: center; gap: 14px; }
+      .persona img { width: 64px; height: 64px; border-radius: 20px; object-fit: cover; }
+      .persona .role { color: var(--muted); font-size: 13px; }
+      .persona blockquote {
+        margin: 0; padding: 14px 16px; background: var(--primary-soft); color: var(--primary-dark);
+        border-radius: 16px; font-weight: 700; font-size: 15px;
+      }
+      .persona dl { margin: 0; display: grid; gap: 12px; }
+      .persona dt { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); }
+      .persona dd { margin: 2px 0 0; font-size: 14px; color: var(--text); }
+      .persona .data { margin-top: auto; font-size: 13px; color: var(--success); background: var(--success-soft); padding: 12px 14px; border-radius: 14px; }
+      .credits { color: var(--muted); font-size: 12px; margin-top: 16px; }
+
+      .tabs { display: inline-flex; gap: 6px; padding: 5px; background: var(--surface-alt); border-radius: 14px; margin-bottom: 18px; }
+      .tabs button {
+        border: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 700; color: var(--muted);
+        padding: 9px 16px; border-radius: 10px; cursor: pointer;
+      }
+      .tabs button[aria-selected="true"] { background: var(--surface); color: var(--primary-dark); box-shadow: 0 2px 8px rgba(29, 26, 45, 0.08); }
+      .journey { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 20px; }
+      .journey .scenario { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+      .journey .scroller { overflow-x: auto; }
+      .journey img { min-width: 860px; width: 100%; border-radius: 10px; }
+      .journey[hidden] { display: none; }
+
+      .pairs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+      .pair { background: var(--bg); border-radius: 24px; padding: 20px; }
+      .pair .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+      .pair figure { margin: 0; }
+      .pair figcaption { font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 8px; text-align: center; }
+      .pair .wf { background: #fff; border-radius: 16px; padding: 8px; aspect-ratio: 9 / 19.5; display: grid; place-items: center; }
+      .pair .wf img { max-height: 100%; }
+      .pair .ui img { border-radius: 16px; box-shadow: 0 10px 24px rgba(29, 26, 45, 0.12); }
+      .pair p { font-size: 14px; color: var(--muted); margin: 14px 0 0; }
+
+      .eval { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+      .card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 24px; }
+      .flows { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+      .flows li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+      .flows li:last-child { border-bottom: 0; }
+      .pill { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+      .pill.ok { background: var(--success-soft); color: var(--success); }
+      .pill.partial { background: var(--warning-soft); color: var(--warning); }
+      .card ul.plain { margin: 12px 0 0; padding-left: 18px; font-size: 14px; color: var(--text); display: grid; gap: 8px; }
+
+      .stack { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+      .stack .card h3 { font-size: 16px; }
+      .stack .card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+      footer {
+        background: var(--primary); color: #fff; padding: 64px 24px;
+      }
+      footer .wrap { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; align-items: flex-end; }
+      footer h2 { color: #fff; font-size: 24px; max-width: 640px; }
+      footer p { margin: 0; color: rgba(255, 255, 255, 0.82); font-size: 15px; }
+      footer .btn.secondary { background: rgba(255, 255, 255, 0.14); color: #fff; border-color: rgba(255, 255, 255, 0.28); }
+      footer .btn.primary { background: #fff; color: var(--primary-dark); box-shadow: none; }
+
       @media (max-width: 1000px) {
-        .intro { display: none; }
+        .stats, .steps, .stack { grid-template-columns: repeat(2, 1fr); }
+        .personas, .pairs { grid-template-columns: 1fr; max-width: 520px; }
+        .eval { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 860px) {
+        .stage, .hint { display: none; }
+        .hero { min-height: auto; padding: 64px 24px 88px; }
+        .intro { max-width: 560px; }
+      }
+      @media (max-width: 540px) {
+        section.block { padding: 64px 16px; }
+        .hero { padding: 48px 16px 80px; }
+        .stats, .steps, .stack { grid-template-columns: 1fr; }
       }
     </style>
   </head>
   <body>
-    <section class="intro">
-      <div class="brand">
-        <img src="/icon.png" alt="" />
-        <span>UniCarona</span>
+    <header class="hero">
+      <div class="intro">
+        <div class="brand">
+          <img src="/icon.png" alt="" />
+          <span>UniCarona</span>
+        </div>
+        <p class="eyebrow">TCC · Ciência da Computação · UNIFAL-MG</p>
+        <h1>Caronas entre universitários, com mais segurança.</h1>
+        <p class="lead">
+          App para estudantes que fazem trajetos parecidos combinarem caronas, com verificação
+          acadêmica e recursos de segurança durante a viagem. Do questionário com estudantes ao
+          protótipo funcional.
+        </p>
+        <div class="tags">
+          <span>React Native</span><span>Expo</span><span>TypeScript</span><span>UX Research</span>
+        </div>
+        <div class="links">
+          <a class="btn primary" href="/app/" target="_blank" rel="noopener">Abrir o app</a>
+          <a class="btn secondary" href="https://github.com/LucasWithBoots/unicarona" target="_blank" rel="noopener">Código no GitHub</a>
+        </div>
+        <p class="hint">Interaja com o app ao lado. Os dados são simulados.</p>
       </div>
-      <p class="eyebrow">TCC · Protótipo funcional</p>
-      <h1>Caronas entre universitários, com mais segurança.</h1>
-      <p class="lead">
-        App para estudantes que fazem trajetos parecidos combinarem caronas, com verificação
-        acadêmica e recursos de segurança durante a viagem.
-      </p>
-      <div class="tags">
-        <span>React Native</span><span>Expo</span><span>TypeScript</span><span>React Navigation</span>
-      </div>
-      <div class="links">
-        <a class="primary" href="/app/" target="_blank" rel="noopener">Abrir versão web</a>
-        <a class="secondary" href="https://github.com/LucasWithBoots/unicarona" target="_blank" rel="noopener">Código no GitHub</a>
-      </div>
-      <p class="hint">Interaja com o app ao lado. Os dados são simulados.</p>
-    </section>
 
-    <div class="stage">
-      <div class="phone" id="phone">
-        <div class="screen">
-          <iframe src="/app/" title="UniCarona"></iframe>
+      <div class="stage">
+        <div class="phone" id="phone">
+          <div class="screen">
+            <iframe src="/app/" title="UniCarona"></iframe>
+          </div>
         </div>
       </div>
-    </div>
+
+      <a class="scroll-cue" href="#problema">Como o projeto foi feito<span>↓</span></a>
+    </header>
+
+    <main>
+      <section class="block" id="problema">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">O problema</p>
+            <h2>Caronas combinadas em grupos de mensagem não dão segurança a ninguém.</h2>
+            <p>
+              Entre estudantes, a carona costuma ser combinada no WhatsApp, no Telegram ou entre
+              conhecidos. Esses canais não verificam quem é quem, não guardam histórico e não
+              ajudam durante a viagem. Para entender o problema, apliquei um questionário com
+              29 perguntas, de 25 a 27 de janeiro de 2026.
+            </p>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>20</strong><span>respostas válidas de universitários, de 28 recebidas</span></div>
+            <div class="stat"><strong>60%</strong><span>já desistiram de uma carona por medo</span></div>
+            <div class="stat"><strong>65%</strong><span>usam principalmente transporte coletivo</span></div>
+            <div class="stat"><strong>85%</strong><span>usariam um app de caronas exclusivo para universitários</span></div>
+          </div>
+          <p class="callout">
+            A principal barreira apontada foi a falta de motoristas: só 3 dos 20 participantes
+            tinham carro e disponibilidade para oferecer caronas.
+          </p>
+        </div>
+      </section>
+
+      <section class="block alt" id="processo">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Processo</p>
+            <h2>Cada decisão de interface partiu dos dados da pesquisa.</h2>
+            <p>O app foi o resultado das etapas de investigação, não o ponto de partida.</p>
+          </div>
+          <ol class="steps">
+            <li class="step"><div class="num">1</div><h3>Problema e escopo</h3><p>Mobilidade universitária e os limites das caronas informais.</p></li>
+            <li class="step"><div class="num">2</div><h3>Questionário</h3><p>29 perguntas sobre deslocamento, receios, confiança, custos e disponibilidade.</p></li>
+            <li class="step"><div class="num">3</div><h3>Análise</h3><p>Frequências das questões fechadas e respostas abertas agrupadas por tema.</p></li>
+            <li class="step"><div class="num">4</div><h3>Requisitos</h3><p>Cada problema observado virou requisito funcional ou não funcional, com escopo de MVP.</p></li>
+            <li class="step"><div class="num">5</div><h3>Personas e jornadas</h3><p>Três personas, dois mapas de jornada e os fluxos de navegação.</p></li>
+            <li class="step"><div class="num">6</div><h3>Protótipo e MVP</h3><p>Interface refinada de forma iterativa e implementada em React Native.</p></li>
+            <li class="step"><div class="num">7</div><h3>Avaliação heurística</h3><p>Inspeção dos oito fluxos principais com base nas heurísticas de Nielsen.</p></li>
+            <li class="step"><div class="num">→</div><h3>Próximos passos</h3><p>Backend, autenticação institucional, mapas e testes com estudantes.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="block" id="personas">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Personas</p>
+            <h2>Três perfis de estudante, construídos a partir das respostas.</h2>
+            <p>Cada ficha traz os números da pesquisa que a sustentam, para não depender de suposições.</p>
+          </div>
+          <div class="personas">
+            <article class="persona">
+              <header>
+                <img src="/tcc/persona-mariana.jpg" alt="Foto ilustrativa da persona Mariana" />
+                <div><h3>Mariana</h3><div class="role">Passageira · período noturno</div></div>
+              </header>
+              <blockquote>“Quero voltar para casa à noite sabendo com quem estou.”</blockquote>
+              <dl>
+                <div><dt>Objetivo</dt><dd>Encontrar uma carona segura para voltar para casa depois da aula.</dd></div>
+                <div><dt>Dores</dt><dd>Medo de pegar carona com desconhecidos e pouca opção de transporte à noite.</dd></div>
+                <div><dt>Precisa de</dt><dd>Perfil verificado, avaliações, rota compartilhada e botão de emergência.</dd></div>
+              </dl>
+              <p class="data">65% usariam o app para voltar à noite; 55% citaram o assédio como receio, incluindo todas as participantes mulheres.</p>
+            </article>
+            <article class="persona">
+              <header>
+                <img src="/tcc/persona-rafael.jpg" alt="Foto ilustrativa da persona Rafael" />
+                <div><h3>Rafael</h3><div class="role">Motorista · divide custos</div></div>
+              </header>
+              <blockquote>“Ofereço vagas se puder confiar em quem vai comigo.”</blockquote>
+              <dl>
+                <div><dt>Objetivo</dt><dd>Oferecer vagas no carro e dividir os custos do trajeto até o campus.</dd></div>
+                <div><dt>Dores</dt><dd>Passageiros desconhecidos, cancelamentos de última hora e horários combinados por mensagem.</dd></div>
+                <div><dt>Precisa de</dt><dd>Passageiros verificados, controle de vagas e critérios claros de aceite.</dd></div>
+              </dl>
+              <p class="data">Só 3 de 20 participantes tinham carro e disponibilidade. Os 8 que poderiam dirigir exigiriam passageiros do mesmo campus ou rota, e 6 aceitariam rotas recorrentes.</p>
+            </article>
+            <article class="persona">
+              <header>
+                <img src="/tcc/persona-beatriz.jpg" alt="Foto ilustrativa da persona Beatriz" />
+                <div><h3>Beatriz</h3><div class="role">Uso eventual</div></div>
+              </header>
+              <blockquote>“Só preciso de carona quando chove ou saio fora do horário.”</blockquote>
+              <dl>
+                <div><dt>Objetivo</dt><dd>Encontrar caronas pontuais quando o transporte de sempre não resolve.</dd></div>
+                <div><dt>Dores</dt><dd>Carona de última hora difícil de achar e grupos de mensagem desorganizados.</dd></div>
+                <div><dt>Precisa de</dt><dd>Busca rápida, filtros por horário, rota clara e confirmação simples.</dd></div>
+              </dl>
+              <p class="data">65% usariam o app em dias de chuva, 35% em eventos acadêmicos e 25% em estágios ou horários fora do comum.</p>
+            </article>
+          </div>
+          <p class="credits">Fotos ilustrativas do Unsplash (Abbat, Suka Endara e Isaiah McClean). Não retratam participantes da pesquisa.</p>
+        </div>
+      </section>
+
+      <section class="block alt" id="jornadas">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Mapas de jornada</p>
+            <h2>Onde a experiência fica tensa, e o que o app faz ali.</h2>
+            <p>
+              Os dois cenários principais, divididos em cinco fases, com ações, pensamentos, emoções,
+              dores e oportunidades. Os picos de tensão viraram funcionalidades do MVP: selo de
+              verificação, valor sugerido, ofertas recorrentes e ações rápidas de segurança.
+            </p>
+          </div>
+          <div class="tabs" role="tablist">
+            <button role="tab" aria-selected="true" aria-controls="j-passageira" id="t-passageira">Passageira</button>
+            <button role="tab" aria-selected="false" aria-controls="j-motorista" id="t-motorista">Motorista</button>
+          </div>
+          <div class="journey" id="j-passageira" role="tabpanel" aria-labelledby="t-passageira">
+            <p class="scenario">Mariana sai da aula às 22h, está chovendo e o ônibus vai demorar: ela procura uma carona para voltar para casa.</p>
+            <div class="scroller"><img src="/tcc/jornada-passageira.png" alt="Mapa de jornada da estudante passageira em cinco fases" /></div>
+          </div>
+          <div class="journey" id="j-motorista" role="tabpanel" aria-labelledby="t-motorista" hidden>
+            <p class="scenario">Rafael vai de carro ao campus às segundas e quartas e quer dividir os custos com colegas que fazem o mesmo trajeto.</p>
+            <div class="scroller"><img src="/tcc/jornada-motorista.png" alt="Mapa de jornada do estudante motorista em cinco fases" /></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="interface">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Do wireframe ao app</p>
+            <h2>Estrutura primeiro, acabamento depois.</h2>
+            <p>Os wireframes de baixa fidelidade registram as decisões de hierarquia que guiaram as telas finais.</p>
+          </div>
+          <div class="pairs">
+            <article class="pair">
+              <div class="shots">
+                <figure><div class="wf"><img src="/tcc/wireframe-detalhes-carona.png" alt="Wireframe da tela de detalhes da carona" /></div><figcaption>Wireframe</figcaption></figure>
+                <figure class="ui"><img src="/tcc/app-detalhes-carona.png" alt="Tela de detalhes da carona no app" /><figcaption>App</figcaption></figure>
+              </div>
+              <h3 style="margin-top:16px">Detalhes da carona</h3>
+              <p>Rota, verificação e avaliação do motorista aparecem antes do pedido de vaga.</p>
+            </article>
+            <article class="pair">
+              <div class="shots">
+                <figure><div class="wf"><img src="/tcc/wireframe-oferecer-carona.png" alt="Wireframe da tela de oferecer carona" /></div><figcaption>Wireframe</figcaption></figure>
+                <figure class="ui"><img src="/tcc/app-oferecer-carona.png" alt="Tela de oferecer carona no app" /><figcaption>App</figcaption></figure>
+              </div>
+              <h3 style="margin-top:16px">Oferecer carona</h3>
+              <p>Formulário com recorrência e valor sugerido, seguido de uma etapa de revisão.</p>
+            </article>
+            <article class="pair">
+              <div class="shots">
+                <figure><div class="wf"><img src="/tcc/wireframe-seguranca.png" alt="Wireframe da tela de segurança" /></div><figcaption>Wireframe</figcaption></figure>
+                <figure class="ui"><img src="/tcc/app-seguranca.png" alt="Tela de segurança no app" /><figcaption>App</figcaption></figure>
+              </div>
+              <h3 style="margin-top:16px">Segurança</h3>
+              <p>Emergência em destaque, com compartilhar rota, denunciar e bloquear logo abaixo.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block alt" id="avaliacao">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Avaliação</p>
+            <h2>O que funcionou, e o que ainda precisa melhorar.</h2>
+            <p>
+              Fiz uma inspeção heurística dos oito fluxos principais, com base nos princípios de
+              usabilidade de Nielsen. Foi uma avaliação exploratória, feita por um único avaliador,
+              sem participação de usuários.
+            </p>
+          </div>
+          <div class="eval">
+            <div class="card">
+              <h3>Resultado por fluxo</h3>
+              <ul class="flows">
+                <li>Consulta e solicitação de vaga <span class="pill ok">Atendido</span></li>
+                <li>Oferta de carona <span class="pill ok">Atendido</span></li>
+                <li>Pedidos e ofertas <span class="pill ok">Atendido</span></li>
+                <li>Perfil e confiança <span class="pill ok">Atendido</span></li>
+                <li>Acesso <span class="pill partial">Parcial</span></li>
+                <li>Acompanhamento da viagem <span class="pill partial">Parcial</span></li>
+                <li>Avaliação pós-viagem <span class="pill partial">Parcial</span></li>
+                <li>Recursos de segurança <span class="pill partial">Parcial</span></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Prioridades levantadas</h3>
+              <ul class="plain">
+                <li>Validar os campos de acesso antes de entrar.</li>
+                <li>Fazer a avaliação começar vazia, para exigir uma escolha deliberada.</li>
+                <li>Dar retorno fiel nas ações de segurança, sem sugerir uma comunicação que não aconteceu.</li>
+                <li>Fazer os filtros funcionarem de verdade.</li>
+                <li>Revisar a acessibilidade com leitor de tela no Android e no iOS.</li>
+              </ul>
+              <h3 style="margin-top:22px">Próximos passos</h3>
+              <ul class="plain">
+                <li>Backend, autenticação institucional e persistência de dados.</li>
+                <li>Mapas, localização e notificações.</li>
+                <li>Testes de usabilidade com estudantes e estratégias para atrair motoristas.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="tecnologia">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Tecnologia</p>
+            <h2>Uma base pronta para crescer.</h2>
+            <p>Telas, componentes, contexto, tipos e dados simulados ficam separados, para que o estado local possa ser trocado por serviços reais.</p>
+          </div>
+          <div class="stack">
+            <div class="card"><h3>React Native</h3><p>Uma base de código para Android e iOS.</p></div>
+            <div class="card"><h3>Expo</h3><p>Build, ícones, splash screen e distribuição.</p></div>
+            <div class="card"><h3>TypeScript</h3><p>Tipos para usuários, caronas e solicitações.</p></div>
+            <div class="card"><h3>React Navigation</h3><p>Navegação em pilha e em abas entre 16 telas.</p></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div>
+          <h2>Desenvolvimento de um Aplicativo Móvel de Caronas Universitárias com Foco em Experiência do Usuário, Segurança e Confiabilidade</h2>
+          <p>Lucas Carrijo Ferrari · Bacharelado em Ciência da Computação, UNIFAL-MG · Orientação: Profa. Mariane Moreira de Souza</p>
+        </div>
+        <div class="links">
+          <a class="btn primary" href="/app/" target="_blank" rel="noopener">Abrir o app</a>
+          <a class="btn secondary" href="https://github.com/LucasWithBoots/unicarona" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </footer>
 
     <script>
       // Reduz o celular quando a janela é mais baixa que ele.
       var phone = document.getElementById("phone");
       var stage = phone.parentElement;
       function fit() {
-        var scale = Math.min(1, (window.innerHeight - 48) / 868, (window.innerWidth - 48) / 414);
+        var scale = Math.min(1, (window.innerHeight - 96) / 868, (window.innerWidth - 48) / 414);
         phone.style.transform = "scale(" + scale + ")";
         stage.style.width = 414 * scale + "px";
         stage.style.height = 868 * scale + "px";
-        phone.style.marginLeft = phone.style.marginTop = "0";
-        phone.style.transformOrigin = "top left";
       }
       fit();
       window.addEventListener("resize", fit);
+
+      // Abas dos mapas de jornada.
+      var tabs = document.querySelectorAll('[role="tab"]');
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          tabs.forEach(function (other) {
+            var selected = other === tab;
+            other.setAttribute("aria-selected", String(selected));
+            document.getElementById(other.getAttribute("aria-controls")).hidden = !selected;
+          });
+        });
+      });
     </script>
   </body>
 </html>
