@@ -4,17 +4,19 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { PrimaryButton } from "../components/PrimaryButton";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "RequestConfirmed">;
 
 export function RequestConfirmedScreen({ navigation, route }: Props) {
+  const wide = useWideLayout();
   const { getRideById } = useAppData();
   const ride = getRideById(route.params.rideId);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, wide && wideColumn(wideLayout.form)]}>
       <View style={styles.successIcon}>
         <Ionicons name="checkmark-circle" size={74} color={colors.success} />
       </View>

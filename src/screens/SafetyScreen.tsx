@@ -1,13 +1,20 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SafetyActionCard } from "../components/SafetyActionCard";
-import { colors, radius, spacing, typography } from "../theme";
+import { notify } from "../components/WebToast";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 export function SafetyScreen() {
+  const wide = useWideLayout();
+  const cardStyle = wide ? styles.actionWide : undefined;
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={[styles.container, wide && [wideColumn(wideLayout.page), styles.containerWide]]}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>Segurança</Text>
           <Text style={styles.subtitle}>
@@ -23,38 +30,42 @@ export function SafetyScreen() {
             description="Simula contato com suporte e pessoa de confiança."
             icon="alert-circle-outline"
             tone="danger"
-            onPress={() => Alert.alert("Emergência acionada", "Contato de confiança e suporte foram notificados.")}
+            onPress={() => notify("Emergência acionada", "Contato de confiança e suporte foram notificados.")}
           />
         </View>
 
-        <View style={styles.actions}>
+        <View style={[styles.actions, wide && styles.actionsWide]}>
           <SafetyActionCard
+            style={cardStyle}
             title="Compartilhar rota"
             description="Envie a rota para um contato de confiança."
             icon="share-social-outline"
             tone="success"
-            onPress={() => Alert.alert("Rota compartilhada", "O contato de confiança recebeu o link da viagem.")}
+            onPress={() => notify("Rota compartilhada", "O contato de confiança recebeu o link da viagem.")}
           />
           <SafetyActionCard
+            style={cardStyle}
             title="Denunciar usuário"
             description="Relate comportamento inadequado para análise."
             icon="flag-outline"
             tone="warning"
-            onPress={() => Alert.alert("Denúncia registrada", "Seu relato foi recebido para análise.")}
+            onPress={() => notify("Denúncia registrada", "Seu relato foi recebido para análise.")}
           />
           <SafetyActionCard
+            style={cardStyle}
             title="Bloquear usuário"
             description="Evite novas interações com um perfil específico."
             icon="ban-outline"
             tone="danger"
-            onPress={() => Alert.alert("Usuário bloqueado", "Esse perfil não poderá interagir com você.")}
+            onPress={() => notify("Usuário bloqueado", "Esse perfil não poderá interagir com você.")}
           />
           <SafetyActionCard
+            style={cardStyle}
             title="Dicas de segurança"
             description="Combine ponto público, confira perfil e compartilhe a rota."
             icon="bulb-outline"
             onPress={() =>
-              Alert.alert(
+              notify(
                 "Dicas rápidas",
                 "Confira o selo verificado, prefira pontos iluminados, avise alguém de confiança e avalie a viagem ao final.",
               )
@@ -113,4 +124,7 @@ const styles = StyleSheet.create({
   actions: {
     gap: spacing.md,
   },
+  containerWide: { gap: spacing.xl, padding: spacing.xxl },
+  actionsWide: { flexDirection: "row", flexWrap: "wrap" },
+  actionWide: { flexBasis: "45%", flexGrow: 1 },
 });

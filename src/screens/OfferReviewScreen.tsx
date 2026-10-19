@@ -1,26 +1,29 @@
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { PrimaryButton } from "../components/PrimaryButton";
+import { notify } from "../components/WebToast";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "OfferReview">;
 
 export function OfferReviewScreen({ navigation, route }: Props) {
+  const wide = useWideLayout();
   const { draft } = route.params;
   const { publishRide } = useAppData();
 
   function handlePublish() {
     publishRide(draft);
-    Alert.alert("Carona publicada", "Sua oferta já aparece em Minhas caronas.");
+    notify("Carona publicada", "Sua oferta já aparece em Minhas caronas.");
     navigation.navigate("MainTabs", { screen: "MyRides" });
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, wide && wideColumn(wideLayout.form)]}>
       <View style={styles.card}>
         <Text style={styles.label}>Rota</Text>
         <Text style={styles.route}>{draft.origin}</Text>

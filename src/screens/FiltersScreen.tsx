@@ -1,24 +1,27 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { InputField } from "../components/InputField";
 import { PrimaryButton } from "../components/PrimaryButton";
+import { notify } from "../components/WebToast";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Filters">;
 
 const times = ["Manhã", "Tarde", "Noite", "Agora"];
 
 export function FiltersScreen({ navigation }: Props) {
+  const wide = useWideLayout();
   const [origin, setOrigin] = useState("Centro de Alfenas");
   const [destination, setDestination] = useState("Campus UNIFAL");
   const [time, setTime] = useState("Noite");
   const [maxPrice, setMaxPrice] = useState("R$ 8,00");
 
   return (
-    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={[styles.container, wide && wideColumn(wideLayout.form)]} keyboardShouldPersistTaps="handled">
       <Text style={styles.title}>Encontrar a melhor carona</Text>
       <Text style={styles.subtitle}>
         Defina origem, destino, horário e valor para encontrar a melhor opção.
@@ -57,7 +60,7 @@ export function FiltersScreen({ navigation }: Props) {
         title="Aplicar filtros"
         icon="checkmark-circle-outline"
         onPress={() => {
-          Alert.alert("Filtros aplicados", "Lista atualizada com caronas compatíveis.");
+          notify("Filtros aplicados", "Lista atualizada com caronas compatíveis.");
           navigation.goBack();
         }}
       />

@@ -1,11 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { BrandCar } from "../components/BrandCar";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
+import { wideLayout } from "../theme";
 import { Ride, User } from "../types";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
@@ -27,61 +30,55 @@ const palette = {
 export function HomeScreen() {
   const navigation = useNavigation<Navigation>();
   const { currentUser, getUserById, rides } = useAppData();
+  const wide = useWideLayout();
 
   return (
-    <SafeAreaView edges={["top"]} style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-        <View style={styles.hero}>
-          <View style={styles.header}>
-            <View style={styles.headingCopy}>
-              <Text style={styles.greeting}>Olá, {currentUser.name.split(" ")[0]}!</Text>
-              <Text style={styles.subtitle}>Para onde vamos hoje?</Text>
+    <SafeAreaView edges={["top"]} style={[styles.safeArea, wide && styles.safeAreaWide]}>
+      <ScrollView
+        contentContainerStyle={[styles.container, wide && [wideColumn(wideLayout.page), styles.containerWide]]}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={wide && styles.topRowWide}>
+          <View style={[styles.hero, wide && styles.heroWide]}>
+            <View style={styles.header}>
+              <View style={styles.headingCopy}>
+                <Text style={styles.greeting}>Olá, {currentUser.name.split(" ")[0]}!</Text>
+                <Text style={styles.subtitle}>Para onde vamos hoje?</Text>
+              </View>
+              <View style={styles.avatar}>
+                <Text style={styles.avatarText}>{currentUser.avatarInitials}</Text>
+                <View style={styles.onlineDot} />
+              </View>
             </View>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>{currentUser.avatarInitials}</Text>
-              <View style={styles.onlineDot} />
+  
+            <TouchableOpacity
+              activeOpacity={0.88}
+              onPress={() => navigation.navigate("Filters")}
+              style={styles.searchBox}
+            >
+              <View style={styles.searchIcon}>
+                <Ionicons name="search" size={20} color={palette.purple} />
+              </View>
+              <View style={styles.searchCopy}>
+                <Text style={styles.searchLabel}>Encontre sua próxima carona</Text>
+                <Text style={styles.searchHint}>Origem, destino ou campus</Text>
+              </View>
+              <View style={styles.filterButton}>
+                <Ionicons name="options" size={18} color={palette.white} />
+              </View>
+            </TouchableOpacity>
+  
+            <View style={styles.shortcuts}>
+              <Shortcut icon="school-outline" label="Campus" />
+              <Shortcut icon="business-outline" label="Centro" />
+              <Shortcut icon="time-outline" label="Agora" />
             </View>
           </View>
-
-          <TouchableOpacity
-            activeOpacity={0.88}
-            onPress={() => navigation.navigate("Filters")}
-            style={styles.searchBox}
-          >
-            <View style={styles.searchIcon}>
-              <Ionicons name="search" size={20} color={palette.purple} />
-            </View>
-            <View style={styles.searchCopy}>
-              <Text style={styles.searchLabel}>Encontre sua próxima carona</Text>
-              <Text style={styles.searchHint}>Origem, destino ou campus</Text>
-            </View>
-            <View style={styles.filterButton}>
-              <Ionicons name="options" size={18} color={palette.white} />
-            </View>
-          </TouchableOpacity>
-
-          <View style={styles.shortcuts}>
-            <Shortcut icon="school-outline" label="Campus" />
-            <Shortcut icon="business-outline" label="Centro" />
-            <Shortcut icon="time-outline" label="Agora" />
-          </View>
+          {wide && <PromoCard style={styles.promoWide} />}
         </View>
 
-        <View style={styles.body}>
-          <View style={styles.promoCard}>
-            <View style={styles.promoDecoration} />
-            <View style={styles.promoCopy}>
-              <View style={styles.promoPill}>
-                <Ionicons name="shield-checkmark" size={13} color={palette.mintText} />
-                <Text style={styles.promoPillText}>Comunidade verificada</Text>
-              </View>
-              <Text style={styles.promoTitle}>Vá junto.{"\n"}Chegue melhor.</Text>
-              <Text style={styles.promoText}>Caronas pensadas para a rotina universitária.</Text>
-            </View>
-            <View style={styles.promoCar}>
-              <Ionicons name="car-sport" size={54} color={palette.white} />
-            </View>
-          </View>
+        <View style={[styles.body, wide && styles.bodyWide]}>
+          {!wide && <PromoCard />}
 
           <View style={styles.sectionHeader}>
             <View>
@@ -94,10 +91,11 @@ export function HomeScreen() {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.list}>
+          <View style={[styles.list, wide && styles.listWide]}>
             {rides.map((ride) => (
               <RoundedRideCard
                 key={ride.id}
+                style={wide ? styles.rideCardWide : undefined}
                 ride={ride}
                 driver={getUserById(ride.driverId)}
                 onPress={() => navigation.navigate("RideDetails", { rideId: ride.id })}
@@ -110,6 +108,25 @@ export function HomeScreen() {
   );
 }
 
+function PromoCard({ style }: { style?: ViewStyle }) {
+  return (
+    <View style={[styles.promoCard, style]}>
+      <View style={styles.promoDecoration} />
+      <View style={styles.promoCopy}>
+        <View style={styles.promoPill}>
+          <Ionicons name="shield-checkmark" size={13} color={palette.mintText} />
+          <Text style={styles.promoPillText}>Comunidade verificada</Text>
+        </View>
+        <Text style={styles.promoTitle}>Vá junto.{"\n"}Chegue melhor.</Text>
+        <Text style={styles.promoText}>Caronas pensadas para a rotina universitária.</Text>
+      </View>
+      <View style={styles.promoCar}>
+        <BrandCar size={60} />
+      </View>
+    </View>
+  );
+}
+
 function Shortcut({ icon, label }: { icon: keyof typeof Ionicons.glyphMap; label: string }) {
   return (
     <View style={styles.shortcut}>
@@ -119,9 +136,19 @@ function Shortcut({ icon, label }: { icon: keyof typeof Ionicons.glyphMap; label
   );
 }
 
-function RoundedRideCard({ ride, driver, onPress }: { ride: Ride; driver?: User; onPress: () => void }) {
+function RoundedRideCard({
+  ride,
+  driver,
+  onPress,
+  style,
+}: {
+  ride: Ride;
+  driver?: User;
+  onPress: () => void;
+  style?: ViewStyle;
+}) {
   return (
-    <TouchableOpacity activeOpacity={0.86} onPress={onPress} style={styles.rideCard}>
+    <TouchableOpacity activeOpacity={0.86} onPress={onPress} style={[styles.rideCard, style]}>
       <View style={styles.rideTopRow}>
         <View style={styles.datePill}>
           <Ionicons name="calendar-clear-outline" size={14} color={palette.purple} />
@@ -165,7 +192,15 @@ function RoundedRideCard({ ride, driver, onPress }: { ride: Ride; driver?: User;
 
 const styles = StyleSheet.create({
   safeArea: { backgroundColor: palette.lavender, flex: 1 },
+  safeAreaWide: { backgroundColor: palette.lilac },
   container: { backgroundColor: palette.lilac, paddingBottom: 108 },
+  containerWide: { gap: 8, paddingBottom: 48, paddingHorizontal: 32, paddingTop: 32 },
+  topRowWide: { flexDirection: "row", gap: 20 },
+  heroWide: { borderRadius: 30, flex: 1.4, justifyContent: "center", padding: 28 },
+  promoWide: { flex: 1, justifyContent: "center", minWidth: 300 },
+  bodyWide: { paddingHorizontal: 0 },
+  listWide: { flexDirection: "row", flexWrap: "wrap", gap: 18 },
+  rideCardWide: { flexBasis: "45%", flexGrow: 1 },
   hero: {
     backgroundColor: palette.lavender,
     borderBottomLeftRadius: 34,

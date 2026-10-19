@@ -60,3 +60,10 @@ export const shadows = {
     elevation: 5,
   },
 };
+
+// Larguras máximas do conteúdo no layout de desktop (web).
+export const wideLayout = {
+  page: 1080,
+  form: 720,
+  sidebar: 264,
+};

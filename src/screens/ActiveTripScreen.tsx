@@ -1,16 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { PrimaryButton } from "../components/PrimaryButton";
 import { UserCard } from "../components/UserCard";
+import { notify } from "../components/WebToast";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "ActiveTrip">;
 
 export function ActiveTripScreen({ navigation, route }: Props) {
+  const wide = useWideLayout();
   const { getRideById, getUserById, rides } = useAppData();
   const ride = route.params?.rideId ? getRideById(route.params.rideId) : rides[0];
   const driver = ride ? getUserById(ride.driverId) : undefined;
@@ -25,7 +28,7 @@ export function ActiveTripScreen({ navigation, route }: Props) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, wide && wideColumn(wideLayout.form)]}>
       <View style={styles.statusCard}>
         <Text style={styles.statusLabel}>Viagem em andamento</Text>
         <Text style={styles.route}>{ride.origin} → {ride.destination}</Text>
@@ -44,18 +47,18 @@ export function ActiveTripScreen({ navigation, route }: Props) {
         <SafetyQuick
           title="Compartilhar rota"
           icon="share-social-outline"
-          onPress={() => Alert.alert("Rota compartilhada", "Seu contato de confiança recebeu a rota da viagem.")}
+          onPress={() => notify("Rota compartilhada", "Seu contato de confiança recebeu a rota da viagem.")}
         />
         <SafetyQuick
           title="Emergência"
           icon="alert-circle-outline"
           danger
-          onPress={() => Alert.alert("Emergência acionada", "Contato de confiança e suporte foram notificados.")}
+          onPress={() => notify("Emergência acionada", "Contato de confiança e suporte foram notificados.")}
         />
         <SafetyQuick
           title="Denunciar"
           icon="flag-outline"
-          onPress={() => Alert.alert("Denúncia registrada", "Seu relato foi recebido para análise.")}
+          onPress={() => notify("Denúncia registrada", "Seu relato foi recebido para análise.")}
         />
       </View>
 

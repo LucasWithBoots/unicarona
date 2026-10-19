@@ -3,6 +3,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { BrandCar } from "../components/BrandCar";
+import { useWideLayout } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Welcome">;
@@ -20,26 +22,28 @@ const palette = {
 };
 
 export function WelcomeScreen({ navigation }: Props) {
+  const wide = useWideLayout();
+
   return (
     <View style={styles.root}>
       <SafeAreaView edges={["top"]} style={styles.statusArea} />
       <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
-        <View style={styles.container}>
-          <View style={styles.hero}>
+        <View style={[styles.container, wide && styles.containerWide]}>
+          <View style={[styles.hero, wide && styles.heroWide]}>
             <View style={[styles.orbit, styles.orbitLarge]} />
             <View style={[styles.orbit, styles.orbitSmall]} />
 
             <View style={styles.brandRow}>
               <View style={styles.brandIcon}>
-                <Ionicons name="car-sport" size={22} color={palette.purple} />
+                <BrandCar size={26} />
               </View>
               <Text style={styles.brand}>UniCarona</Text>
             </View>
 
-            <View style={styles.illustration}>
+            <View style={[styles.illustration, wide && styles.illustrationWide]}>
               <View style={styles.roadLine} />
-              <View style={styles.carBubble}>
-                <Ionicons name="car-sport" size={70} color={palette.white} />
+              <View style={[styles.carBubble, wide && styles.carBubbleWide]}>
+                <BrandCar size={wide ? 128 : 88} />
               </View>
               <View style={[styles.floatingBadge, styles.badgeLeft]}>
                 <Ionicons name="shield-checkmark" size={18} color="#277A5A" />
@@ -52,13 +56,13 @@ export function WelcomeScreen({ navigation }: Props) {
             </View>
           </View>
 
-          <View style={styles.content}>
+          <View style={[styles.content, wide && styles.contentWide]}>
             <View style={styles.copy}>
               <Text style={styles.eyebrow}>CARONAS UNIVERSITÁRIAS</Text>
-              <Text style={styles.title}>
+              <Text style={[styles.title, wide && styles.titleWide]}>
                 Seu caminho fica melhor quando é compartilhado.
               </Text>
-              <Text style={styles.subtitle}>
+              <Text style={[styles.subtitle, wide && styles.subtitleWide]}>
                 Encontre estudantes verificados, combine rotas e chegue ao
                 campus com mais tranquilidade.
               </Text>
@@ -102,6 +106,7 @@ const styles = StyleSheet.create({
   statusArea: { backgroundColor: palette.purple },
   safeArea: { backgroundColor: palette.lilac, flex: 1 },
   container: { flex: 1 },
+  containerWide: { flexDirection: "row" },
   hero: {
     backgroundColor: palette.purple,
     borderBottomLeftRadius: 42,
@@ -110,6 +115,16 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     paddingHorizontal: 24,
     paddingTop: 18,
+  },
+  heroWide: {
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 48,
+    borderBottomRightRadius: 48,
+    flex: 1.1,
+    minHeight: "100%",
+    paddingBottom: 48,
+    paddingHorizontal: 56,
+    paddingTop: 48,
   },
   orbit: {
     borderColor: "rgba(255,255,255,0.13)",
@@ -122,8 +137,10 @@ const styles = StyleSheet.create({
   brandRow: { alignItems: "center", flexDirection: "row", gap: 10 },
   brandIcon: {
     alignItems: "center",
-    backgroundColor: palette.white,
+    backgroundColor: palette.purple,
+    borderColor: "rgba(255,255,255,0.4)",
     borderRadius: 14,
+    borderWidth: 1,
     height: 42,
     justifyContent: "center",
     width: 42,
@@ -140,6 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     minHeight: 245,
   },
+  illustrationWide: { alignSelf: "center", marginVertical: "auto", maxHeight: 460, width: 520 },
   roadLine: {
     backgroundColor: "rgba(255,255,255,0.16)",
     borderRadius: 999,
@@ -160,6 +178,7 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "-4deg" }],
     width: 196,
   },
+  carBubbleWide: { borderRadius: 60, height: 230, width: 290 },
   floatingBadge: {
     alignItems: "center",
     borderRadius: 18,
@@ -182,6 +201,14 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingTop: 26,
   },
+  contentWide: {
+    flex: 1,
+    gap: 40,
+    justifyContent: "center",
+    marginHorizontal: "auto",
+    maxWidth: 560,
+    padding: 64,
+  },
   copy: { gap: 10 },
   eyebrow: {
     color: palette.purple,
@@ -196,7 +223,9 @@ const styles = StyleSheet.create({
     letterSpacing: -1,
     lineHeight: 34,
   },
+  titleWide: { fontSize: 46, letterSpacing: -1.6, lineHeight: 50 },
   subtitle: { color: palette.muted, fontSize: 15, lineHeight: 21 },
+  subtitleWide: { fontSize: 18, lineHeight: 27 },
   actions: { gap: 9, paddingTop: 18 },
   primaryButton: {
     alignItems: "center",

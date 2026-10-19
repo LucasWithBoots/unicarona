@@ -6,14 +6,16 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { InputField } from "../components/InputField";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TripReview">;
 
 const criteria = ["Pontualidade", "Comunicação", "Respeito", "Segurança"];
 
 export function TripReviewScreen({ navigation, route }: Props) {
+  const wide = useWideLayout();
   const { getRideById, getUserById } = useAppData();
   const [rating, setRating] = useState(5);
   const [selectedCriteria, setSelectedCriteria] = useState<string[]>(["Pontualidade", "Segurança"]);
@@ -48,7 +50,7 @@ export function TripReviewScreen({ navigation, route }: Props) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={[styles.container, wide && wideColumn(wideLayout.form)]} keyboardShouldPersistTaps="handled">
       <View style={styles.header}>
         <Text style={styles.title}>Como foi a carona?</Text>
         <Text style={styles.subtitle}>

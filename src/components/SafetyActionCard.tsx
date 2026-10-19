@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
 
 import { colors, radius, shadows, spacing, typography } from "../theme";
 
@@ -9,6 +9,7 @@ interface SafetyActionCardProps {
   icon: keyof typeof Ionicons.glyphMap;
   tone?: "primary" | "success" | "danger" | "warning";
   onPress: () => void;
+  style?: ViewStyle;
 }
 
 export function SafetyActionCard({
@@ -17,6 +18,7 @@ export function SafetyActionCard({
   icon,
   tone = "primary",
   onPress,
+  style,
 }: SafetyActionCardProps) {
   const toneColor =
     tone === "success"
@@ -36,7 +38,7 @@ export function SafetyActionCard({
           : colors.primarySoft;
 
   return (
-    <TouchableOpacity activeOpacity={0.84} onPress={onPress} style={styles.card}>
+    <TouchableOpacity activeOpacity={0.84} onPress={onPress} style={[styles.card, style]}>
       <View style={[styles.iconBox, { backgroundColor: softColor }]}>
         <Ionicons name={icon} size={24} color={toneColor} />
       </View>

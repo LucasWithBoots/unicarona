@@ -8,18 +8,22 @@ import { PrimaryButton } from "../components/PrimaryButton";
 import { UserCard } from "../components/UserCard";
 import { VerifiedBadge } from "../components/VerifiedBadge";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
 export function ProfileScreen() {
   const navigation = useNavigation<Navigation>();
   const { currentUser } = useAppData();
+  const wide = useWideLayout();
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={[styles.container, wide && [wideColumn(wideLayout.page), styles.containerWide]]}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>Perfil</Text>
           <Text style={styles.subtitle}>
@@ -39,19 +43,21 @@ export function ProfileScreen() {
           <Stat icon="shield-checkmark-outline" label="Verificação" value="Ativa" />
         </View>
 
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Informações acadêmicas</Text>
-          <Info label="Universidade" value={currentUser.university} />
-          <Info label="Campus" value={currentUser.campus} />
-          <Info label="Curso" value={currentUser.course} />
-          <Info label="E-mail" value={currentUser.email} />
-        </View>
+        <View style={[styles.cards, wide && styles.cardsWide]}>
+          <View style={[styles.card, wide && styles.cardWide]}>
+            <Text style={styles.sectionTitle}>Informações acadêmicas</Text>
+            <Info label="Universidade" value={currentUser.university} />
+            <Info label="Campus" value={currentUser.campus} />
+            <Info label="Curso" value={currentUser.course} />
+            <Info label="E-mail" value={currentUser.email} />
+          </View>
 
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Preferências de segurança</Text>
-          <Preference title="Contato de confiança" value="Configurado" />
-          <Preference title="Compartilhar rota automaticamente" value="Ativo" />
-          <Preference title="Receber alertas noturnos" value="Ativo" />
+          <View style={[styles.card, wide && styles.cardWide]}>
+            <Text style={styles.sectionTitle}>Preferências de segurança</Text>
+            <Preference title="Contato de confiança" value="Configurado" />
+            <Preference title="Compartilhar rota automaticamente" value="Ativo" />
+            <Preference title="Receber alertas noturnos" value="Ativo" />
+          </View>
         </View>
 
         <TouchableOpacity activeOpacity={0.84} style={styles.supportCard}>
@@ -67,6 +73,7 @@ export function ProfileScreen() {
           title="Sair da conta"
           icon="log-out-outline"
           variant="outline"
+          style={wide ? styles.logoutWide : undefined}
           onPress={() => navigation.navigate("Welcome")}
         />
       </ScrollView>
@@ -165,6 +172,11 @@ const styles = StyleSheet.create({
     fontSize: typography.tiny,
     fontWeight: "800",
   },
+  containerWide: { gap: spacing.xl, padding: spacing.xxl },
+  cards: { gap: spacing.lg },
+  cardsWide: { alignItems: "flex-start", flexDirection: "row" },
+  cardWide: { flex: 1 },
+  logoutWide: { alignSelf: "flex-start", minWidth: 240 },
   card: {
     backgroundColor: colors.surface,
     borderColor: colors.border,

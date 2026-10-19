@@ -1,6 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import { DesktopSidebar, SidebarItem } from "../components/DesktopSidebar";
+import { useWideLayout } from "../hooks/useWideLayout";
 import { HomeScreen } from "../screens/HomeScreen";
 import { MyRidesScreen } from "../screens/MyRidesScreen";
 import { OfferRideScreen } from "../screens/OfferRideScreen";
@@ -11,11 +13,23 @@ import { TabParamList } from "./types";
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
+const tabItems: Record<keyof TabParamList, SidebarItem> = {
+  Home: { active: "home", inactive: "home-outline", label: "Início" },
+  OfferRide: { active: "add-circle", inactive: "add-circle-outline", label: "Oferecer carona" },
+  MyRides: { active: "car-sport", inactive: "car-sport-outline", label: "Minhas caronas" },
+  Safety: { active: "shield-checkmark", inactive: "shield-checkmark-outline", label: "Segurança" },
+  Profile: { active: "person-circle", inactive: "person-circle-outline", label: "Perfil" },
+};
+
 export function MainTabs() {
+  const wide = useWideLayout();
+
   return (
     <Tab.Navigator
+      tabBar={wide ? (props) => <DesktopSidebar {...props} items={tabItems} /> : undefined}
       screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarPosition: wide ? "left" : "bottom",
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.subtle,
         tabBarLabelStyle: {
@@ -40,15 +54,9 @@ export function MainTabs() {
           ...shadows.floating,
         },
         tabBarIcon: ({ color, size, focused }) => {
-          const icons: Record<keyof TabParamList, keyof typeof Ionicons.glyphMap> = {
-            Home: focused ? "home" : "home-outline",
-            OfferRide: focused ? "add-circle" : "add-circle-outline",
-            MyRides: focused ? "car-sport" : "car-sport-outline",
-            Safety: focused ? "shield-checkmark" : "shield-checkmark-outline",
-            Profile: focused ? "person-circle" : "person-circle-outline",
-          };
+          const icon = tabItems[route.name];
 
-          return <Ionicons name={icons[route.name]} size={size} color={color} />;
+          return <Ionicons name={focused ? icon.active : icon.inactive} size={size} color={color} />;
         },
       })}
     >

@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { AuthLayout } from "../components/AuthLayout";
 import { ActiveTripScreen } from "../screens/ActiveTripScreen";
 import { FiltersScreen } from "../screens/FiltersScreen";
 import { LoginScreen } from "../screens/LoginScreen";
@@ -18,6 +19,8 @@ import { RootStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const authLayout = ({ children }: { children: React.ReactElement }) => <AuthLayout>{children}</AuthLayout>;
+
 export function AppNavigator() {
   return (
     <NavigationContainer>
@@ -33,11 +36,22 @@ export function AppNavigator() {
         }}
       >
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          layout={authLayout}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          layout={authLayout}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Verification"
           component={VerificationScreen}
+          layout={authLayout}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />

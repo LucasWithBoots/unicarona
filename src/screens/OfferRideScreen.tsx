@@ -1,13 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { InputField } from "../components/InputField";
 import { PrimaryButton } from "../components/PrimaryButton";
+import { notify } from "../components/WebToast";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 import { OfferRideDraft } from "../types";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
@@ -15,6 +17,7 @@ type Navigation = NativeStackNavigationProp<RootStackParamList>;
 const recurrences = ["Única", "Dias úteis", "Aulas noturnas", "Semanal"];
 
 export function OfferRideScreen() {
+  const wide = useWideLayout();
   const navigation = useNavigation<Navigation>();
   const [draft, setDraft] = useState<OfferRideDraft>({
     origin: "Campus UNIFAL",
@@ -35,7 +38,7 @@ export function OfferRideScreen() {
 
   function handleReview() {
     if (!draft.origin.trim() || !draft.destination.trim() || !draft.time.trim()) {
-      Alert.alert("Preencha a rota", "Origem, destino e horário são obrigatórios para publicar uma carona.");
+      notify("Preencha a rota", "Origem, destino e horário são obrigatórios para publicar uma carona.");
       return;
     }
 
@@ -44,7 +47,7 @@ export function OfferRideScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+      <ScrollView contentContainerStyle={[styles.container, wide && wideColumn(wideLayout.form)]} keyboardShouldPersistTaps="handled">
         <View style={styles.header}>
           <Text style={styles.title}>Oferecer carona</Text>
           <Text style={styles.subtitle}>

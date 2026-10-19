@@ -7,8 +7,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { RideCard } from "../components/RideCard";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
@@ -19,10 +20,13 @@ export function MyRidesScreen() {
     (request) => myRides.some((ride) => ride.id === request.rideId) && request.status === "pending",
   );
   const myPassengerRequests = requests.filter((request) => request.passengerId === currentUser.id);
+  const wide = useWideLayout();
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={[styles.container, wide && [wideColumn(wideLayout.page), styles.containerWide]]}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>Minhas caronas</Text>
           <Text style={styles.subtitle}>
@@ -50,9 +54,9 @@ export function MyRidesScreen() {
             <Text style={styles.sectionTitle}>Ofertas publicadas</Text>
             <Text style={styles.sectionCount}>{myRides.length}</Text>
           </View>
-          <View style={styles.list}>
+          <View style={[styles.list, wide && styles.listWide]}>
             {myRides.map((ride) => (
-              <View key={ride.id} style={styles.rideWrapper}>
+              <View key={ride.id} style={[styles.rideWrapper, wide && styles.gridItem]}>
                 <RideCard
                   ride={ride}
                   driver={getUserById(ride.driverId)}
@@ -90,7 +94,7 @@ export function MyRidesScreen() {
               <Text style={styles.emptyText}>Você ainda não solicitou vagas nesta sessão.</Text>
             </View>
           ) : (
-            <View style={styles.list}>
+            <View style={[styles.list, wide && styles.listWide]}>
               {myPassengerRequests.map((request) => {
                 const ride = rides.find((item) => item.id === request.rideId);
                 const driver = ride ? getUserById(ride.driverId) : undefined;
@@ -100,7 +104,7 @@ export function MyRidesScreen() {
                 }
 
                 return (
-                  <View key={request.id} style={styles.requestSent}>
+                  <View key={request.id} style={[styles.requestSent, wide && styles.gridItem]}>
                     <Text style={styles.requestStatus}>{statusLabel(request.status)}</Text>
                     <Text style={styles.requestRoute}>{ride.origin} → {ride.destination}</Text>
                     <Text style={styles.requestMeta}>
@@ -207,6 +211,9 @@ const styles = StyleSheet.create({
   list: {
     gap: spacing.md,
   },
+  containerWide: { gap: spacing.xl, padding: spacing.xxl },
+  listWide: { flexDirection: "row", flexWrap: "wrap", gap: spacing.lg },
+  gridItem: { flexBasis: "45%", flexGrow: 1 },
   rideWrapper: {
     gap: spacing.sm,
   },

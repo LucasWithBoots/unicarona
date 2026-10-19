@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { WebToast } from "./src/components/WebToast";
 import { AppDataProvider } from "./src/context/AppDataContext";
 import { AppNavigator } from "./src/navigation/AppNavigator";
 
@@ -15,6 +16,7 @@ export default function App() {
         <AppDataProvider>
           <StatusBar style="dark" />
           <AppNavigator />
+          <WebToast />
         </AppDataProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

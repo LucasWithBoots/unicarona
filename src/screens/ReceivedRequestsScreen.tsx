@@ -1,27 +1,30 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { PrimaryButton } from "../components/PrimaryButton";
 import { UserCard } from "../components/UserCard";
+import { notify } from "../components/WebToast";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 import { RequestStatus } from "../types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "ReceivedRequests">;
 
 export function ReceivedRequestsScreen({ navigation }: Props) {
+  const wide = useWideLayout();
   const { getRideById, getUserById, myRides, requests, updateRequestStatus } = useAppData();
   const myRideIds = myRides.map((ride) => ride.id);
   const received = requests.filter((request) => myRideIds.includes(request.rideId));
 
   function handleStatus(requestId: string, status: RequestStatus) {
     updateRequestStatus(requestId, status);
-    Alert.alert(status === "accepted" ? "Solicitação aceita" : "Solicitação recusada");
+    notify(status === "accepted" ? "Solicitação aceita" : "Solicitação recusada");
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, wide && wideColumn(wideLayout.form)]}>
       <Text style={styles.title}>Passageiros interessados</Text>
       <Text style={styles.subtitle}>
         Revise perfil, avaliação e mensagem antes de aceitar uma vaga.

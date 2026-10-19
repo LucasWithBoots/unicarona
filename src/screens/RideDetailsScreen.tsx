@@ -7,12 +7,14 @@ import { RatingStars } from "../components/RatingStars";
 import { UserCard } from "../components/UserCard";
 import { VerifiedBadge } from "../components/VerifiedBadge";
 import { useAppData } from "../context/AppDataContext";
+import { useWideLayout, wideColumn } from "../hooks/useWideLayout";
 import { RootStackParamList } from "../navigation/types";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography, wideLayout } from "../theme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "RideDetails">;
 
 export function RideDetailsScreen({ navigation, route }: Props) {
+  const wide = useWideLayout();
   const { getRideById, getUserById, requestRide, requestedRideIds } = useAppData();
   const ride = getRideById(route.params.rideId);
   const driver = ride ? getUserById(ride.driverId) : undefined;
@@ -28,7 +30,7 @@ export function RideDetailsScreen({ navigation, route }: Props) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, wide && wideColumn(wideLayout.form)]}>
       <View style={styles.summaryCard}>
         <Text style={styles.label}>Rota</Text>
         <Text style={styles.routeTitle}>{ride.origin}</Text>
