@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UniCarona · Caronas universitárias</title>
+    <meta name="description" content="Protótipo do UniCarona, app de caronas universitárias desenvolvido como TCC. Teste direto no navegador." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="UniCarona · Caronas universitárias" />
+    <meta property="og:description" content="Protótipo do app de caronas universitárias desenvolvido como TCC. Teste direto no navegador." />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.ico" />
+    <script>
+      // Em telas de celular, abre o app direto em tela cheia.
+      if (window.matchMedia("(max-width: 767px)").matches) {
+        location.replace("/app/");
+      }
+    </script>
+    <style>
+      :root {
+        --primary: #6d55f7;
+        --primary-dark: #382779;
+        --primary-soft: #e8e1ff;
+        --bg: #f7f5fc;
+        --text: #1d1a2d;
+        --muted: #777187;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; }
+      body {
+        background:
+          radial-gradient(circle at 85% 15%, rgba(109, 85, 247, 0.18), transparent 45%),
+          radial-gradient(circle at 10% 90%, rgba(72, 185, 137, 0.12), transparent 40%),
+          var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(32px, 7vw, 120px);
+        padding: 24px;
+        overflow: hidden;
+      }
+      .intro { max-width: 420px; }
+      .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+      .brand img { width: 52px; height: 52px; border-radius: 14px; box-shadow: 0 8px 20px rgba(56, 39, 121, 0.2); }
+      .brand span { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+      .eyebrow {
+        color: var(--primary); font-size: 12px; font-weight: 700;
+        letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 12px;
+      }
+      h1 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; }
+      .lead { color: var(--muted); font-size: 17px; line-height: 1.55; margin: 0 0 28px; }
+      .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+      .tags span {
+        background: var(--primary-soft); color: var(--primary-dark);
+        font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px;
+      }
+      .links { display: flex; gap: 12px; flex-wrap: wrap; }
+      .links a {
+        text-decoration: none; font-weight: 700; font-size: 15px;
+        padding: 12px 18px; border-radius: 14px;
+      }
+      .links .primary { background: var(--primary); color: #fff; box-shadow: 0 10px 22px rgba(109, 85, 247, 0.3); }
+      .links .secondary { background: #fff; color: var(--text); border: 1px solid #e8e3f0; }
+      .hint { color: var(--muted); font-size: 13px; margin-top: 20px; }
+
+      .stage { flex: none; }
+      .phone {
+        position: relative;
+        width: 414px; height: 868px;
+        padding: 12px;
+        border-radius: 64px;
+        background: #121019;
+        box-shadow:
+          inset 0 0 0 2px #2c2838,
+          0 0 0 1px #0a0910,
+          0 40px 80px rgba(29, 26, 45, 0.28),
+          0 12px 24px rgba(29, 26, 45, 0.16);
+        transform-origin: center;
+      }
+      .phone::before, .phone::after {
+        content: ""; position: absolute; width: 4px; border-radius: 2px; background: #1c1926;
+      }
+      .phone::before { left: -4px; top: 180px; height: 64px; box-shadow: 0 84px 0 #1c1926; }
+      .phone::after { right: -4px; top: 230px; height: 96px; }
+      .screen {
+        position: relative; width: 390px; height: 844px;
+        border-radius: 52px; overflow: hidden; background: #fff;
+      }
+      .screen iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+      @media (max-width: 1000px) {
+        .intro { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="intro">
+      <div class="brand">
+        <img src="/icon.png" alt="" />
+        <span>UniCarona</span>
+      </div>
+      <p class="eyebrow">TCC · Protótipo funcional</p>
+      <h1>Caronas entre universitários, com mais segurança.</h1>
+      <p class="lead">
+        App para estudantes que fazem trajetos parecidos combinarem caronas, com verificação
+        acadêmica e recursos de segurança durante a viagem.
+      </p>
+      <div class="tags">
+        <span>React Native</span><span>Expo</span><span>TypeScript</span><span>React Navigation</span>
+      </div>
+      <div class="links">
+        <a class="primary" href="/app/" target="_blank" rel="noopener">Abrir em tela cheia</a>
+        <a class="secondary" href="https://github.com/LucasWithBoots/unicarona" target="_blank" rel="noopener">Código no GitHub</a>
+      </div>
+      <p class="hint">Interaja com o app ao lado. Os dados são simulados.</p>
+    </section>
+
+    <div class="stage">
+      <div class="phone" id="phone">
+        <div class="screen">
+          <iframe src="/app/" title="UniCarona"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Reduz o celular quando a janela é mais baixa que ele.
+      var phone = document.getElementById("phone");
+      var stage = phone.parentElement;
+      function fit() {
+        var scale = Math.min(1, (window.innerHeight - 48) / 868, (window.innerWidth - 48) / 414);
+        phone.style.transform = "scale(" + scale + ")";
+        stage.style.width = 414 * scale + "px";
+        stage.style.height = 868 * scale + "px";
+        phone.style.marginLeft = phone.style.marginTop = "0";
+        phone.style.transformOrigin = "top left";
+      }
+      fit();
+      window.addEventListener("resize", fit);
+    </script>
+  </body>
+</html>
